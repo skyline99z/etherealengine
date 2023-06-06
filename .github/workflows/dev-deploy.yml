@@ -6,7 +6,7 @@ on:
       [dev]
 jobs:
   secrets-gate-run:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     outputs:
       ok: ${{ steps.check-secrets-run.outputs.ok }}
     steps:
@@ -17,7 +17,7 @@ jobs:
             echo "ok=enabled" >> $GITHUB_OUTPUT
           fi
   secrets-gate-webhook:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     outputs:
       ok: ${{ steps.check-secrets-webhook.outputs.ok }}
     steps:
@@ -31,7 +31,7 @@ jobs:
     needs:
       - secrets-gate-run
     if: ${{ needs.secrets-gate-run.outputs.ok == 'enabled' }}
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - uses: actions/checkout@v3
       - name: Use Node.js
